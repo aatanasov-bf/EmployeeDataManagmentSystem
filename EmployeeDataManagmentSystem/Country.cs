@@ -6,13 +6,6 @@ namespace EmployeeDataManagmentSystem
     public class Country
     {
         public Name Name { get; set; }
-
-        public void FetchCountryList()
-        {
-            var client = new RestClient("https://restcountries.com/v3.1/all?fields=name");
-            RestRequest request = new RestRequest();
-            RestResponse response = client.Execute(request);
-        }
     }
 
     public class Name

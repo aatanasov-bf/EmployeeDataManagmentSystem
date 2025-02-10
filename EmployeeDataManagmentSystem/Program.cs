@@ -1,26 +1,56 @@
 ﻿using EmployeeDataManagmentSystem;
-using Newtonsoft.Json;
-using System.Diagnostics.Metrics;
+using EmployeeDataManagmentSystem.Services;
 
-Country country = new Country();
+CountryService countryService = new CountryService();
+EmployeeManagment employeeManagment = new EmployeeManagment();
+List<Country> countries = countryService.FetchCountryList();
 
-country.FetchCountryList();
+Console.WriteLine("List of available countires");
+foreach (var c in countries)
+{
+    Console.WriteLine(c.Name.CountryCommonName);
+}
 
+employeeManagment.DisplayEmployees();
 
+AddEmployee(employeeManagment,countries);
+employeeManagment.DisplayEmployees();
+FileServices.SaveToFile(employeeManagment.GetEmployees());
 
+UpdateSalary(employeeManagment);
+employeeManagment.DisplayEmployees();
+FileServices.SaveToFile(employeeManagment.GetEmployees());
 
+RemoveEmployee(employeeManagment);
+employeeManagment.DisplayEmployees();
+FileServices.SaveToFile(employeeManagment.GetEmployees());
 
+static void AddEmployee(EmployeeManagment employeeManagment, List<Country> countries)
+{
+    Console.WriteLine("Enter employee name: ");
+    string fullName = Console.ReadLine();
+    Console.WriteLine("Enter employee salary: ");
+    decimal salary = decimal.Parse(Console.ReadLine());
+    Console.WriteLine("Choose employee country: ");
+    int selectedCountry = int.Parse(Console.ReadLine());
+    Country country = countries[selectedCountry];
 
+    employeeManagment.AddEmployee(new Employee(fullName, country, salary));
+}
 
-//string json = @"
-//{
-//    ""employees"": [
-//        { ""id"": 1, ""name"": ""Alice"", ""age"": 25 },
-//        { ""id"": 2, ""name"": ""Bob"", ""age"": 30 }
-//    ]
-//}
-//";
+static void RemoveEmployee(EmployeeManagment employeeManagment)
+{
+    Console.WriteLine("Enter employee name: ");
+    string employeeName = Console.ReadLine();
+    employeeManagment.RemoveEmployee(employeeName);
+}
 
-//string content = json;
-//Console.WriteLine(content);
-//File.WriteAllText("output.json", content);
+static void UpdateSalary(EmployeeManagment employeeManagment)
+{
+    Console.WriteLine("Enter employee name: ");
+    string employeeName = Console.ReadLine();
+    Console.WriteLine("Enter new salary: ");
+    decimal newSalary = decimal.Parse(Console.ReadLine());
+    employeeManagment.UpdateSalary(employeeName, newSalary);
+}
+
