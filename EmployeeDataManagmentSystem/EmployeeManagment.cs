@@ -17,11 +17,11 @@ namespace EmployeeDataManagmentSystem
             if (!IsExistingEmployee(employee))
             {
                 employees.Add(employee);
-                Console.WriteLine("Employee succesfully added");
+                Console.WriteLine("Employee succesfully added\n");
             }
 
             else
-                Console.WriteLine("Employee already exists!");
+                Console.WriteLine("Employee already exists!\n");
         }
 
         public void RemoveEmployee(string employeeName)
@@ -29,16 +29,18 @@ namespace EmployeeDataManagmentSystem
             if (IsExistingEmployee(employeeName))
             {
                 employees.Remove(GetCertainEmployee(employeeName));
-                Console.WriteLine("Employee successfully removed");
+                Console.WriteLine("Employee successfully removed\n");
             }
+            else
+                Console.WriteLine("Employee not found!\n");
         }
 
-        public void AddDepartment(string employeeName, string departmentName)
+        public void AssignDepartment(string employeeName, string departmentName)
         {
             if (!IsExistingEmployee(employeeName))
-                Console.WriteLine("Employee is not existing!");
+                Console.WriteLine("Employee does not exist!\n");
             else if (IsExistingDepartment(departmentName))
-                Console.WriteLine("Department already assigned!");
+                Console.WriteLine("Department already assigned!\n");
             else
             {
                 Employee employee = GetCertainEmployee(employeeName);
@@ -49,7 +51,7 @@ namespace EmployeeDataManagmentSystem
         public void UpdateSalary(string employeeName, decimal newSalary)
         {
             if (!IsExistingEmployee(employeeName))
-                Console.WriteLine("Employee is not existing!");
+                Console.WriteLine("Employee does not exist!\n");
             else
             {
                 Employee employee = GetCertainEmployee(employeeName);
@@ -61,6 +63,7 @@ namespace EmployeeDataManagmentSystem
         {
             if (employees.Count > 0)
             {
+                Console.WriteLine("-List of all employees-");
                 foreach (Employee employee in employees)
                 {
                     Console.WriteLine($"Employee Name: {employee.FullName}");
@@ -70,10 +73,11 @@ namespace EmployeeDataManagmentSystem
                     else
                         Console.WriteLine($"Employee Assigned Departments: None");
                     Console.WriteLine($"Employee Salary: {employee.Salary}");
+                    Console.WriteLine();
                 }
             }
             else
-                Console.WriteLine("List is empty!");
+                Console.WriteLine("List is empty!\n");
         }
 
         public Employee GetCertainEmployee(string employeeName)
@@ -98,7 +102,7 @@ namespace EmployeeDataManagmentSystem
 
         private bool IsExistingDepartment(string departmentName)
         {
-            return employees.Any(e => e.AssignedDepartments.Contains(departmentName,StringComparer.OrdinalIgnoreCase));
+            return employees.Any(e => e.AssignedDepartments!=null && e.AssignedDepartments.Contains(departmentName,StringComparer.OrdinalIgnoreCase));
         }
     }
 }

@@ -22,7 +22,7 @@ namespace EmployeeDataManagmentSystem.Services
                 return JsonConvert.DeserializeObject<List<Country>>(response.Content);
             else
             {
-                throw new Exception("Data was not fetched!");
+                throw new Exception("Data was not fetched!\n");
             }
         }
     }

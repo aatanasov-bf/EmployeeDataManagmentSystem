@@ -10,6 +10,7 @@ namespace EmployeeDataManagmentSystem.Services
         {
             string json = JsonConvert.SerializeObject(employees, Formatting.Indented);
             File.WriteAllText(employeeFilePath, json);
+            Console.WriteLine("Data was saved successfully!\n");
         }
 
         public static List<Employee> LoadFromFile(string filePath)

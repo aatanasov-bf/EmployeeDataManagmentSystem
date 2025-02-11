@@ -30,10 +30,12 @@ namespace EmployeeDataManagmentSystem
 
         public void AddDepartment(string department)
         {
+            if(AssignedDepartments==null)
+                AssignedDepartments = new List<string>();
             if (!AssignedDepartments.Contains(department.ToLower(),StringComparer.OrdinalIgnoreCase))
                 AssignedDepartments.Add(department);
             else
-                throw new Exception("Department already added");
+                throw new Exception("Department already added\n");
         }
 
         public void UpdateSalary(decimal salary)
@@ -41,7 +43,7 @@ namespace EmployeeDataManagmentSystem
             if (salary > 0)
                 Salary = salary;
             else
-                throw new Exception("Salry must be a positive number!");
+                throw new Exception("Salry must be a positive number!\n");
         }
     }
 
